@@ -74,7 +74,8 @@ public class ChessMatch {
 		return board.piece(position).possibleMoves();
 	}
 
-	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
+	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition,
+			List<ChessPosition> moveList) {
 		Position source = sourcePosition.toPosition();
 		Position target = targetPosition.toPosition();
 		validateSourcePosition(source);
@@ -114,6 +115,9 @@ public class ChessMatch {
 			enPassantVulnerable = null;
 		}
 
+		// Add to move list
+		moveList.add(ChessPosition.fromPosition(target));
+
 		return (ChessPiece) capturedPiece;
 	}
 
@@ -124,23 +128,26 @@ public class ChessMatch {
 		if (!type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q")) {
 			return promoted;
 		}
-		
+
 		Position pos = promoted.getChessPosition().toPosition();
 		Piece p = board.removePiece(pos);
 		piecesOnTheBoard.remove(p);
-		
+
 		ChessPiece newPiece = newPiece(type, promoted.getColor());
 		board.placePiece(newPiece, pos);
 		piecesOnTheBoard.add(newPiece);
-		
+
 		return newPiece;
-		
+
 	}
-	
+
 	private ChessPiece newPiece(String type, Color color) {
-		if (type.equals("B")) return new Bishop(board, color);
-		if (type.equals("N")) return new Knight(board, color);
-		if (type.equals("R")) return new Rook(board, color);
+		if (type.equals("B"))
+			return new Bishop(board, color);
+		if (type.equals("N"))
+			return new Knight(board, color);
+		if (type.equals("R"))
+			return new Rook(board, color);
 		return new Queen(board, color);
 	}
 

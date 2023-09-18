@@ -111,6 +111,13 @@ public class UI {
 		System.out.print(" ");
 	}
 
+//	private static void printMoves(List<ChessPosition> moveList) {
+//		//Chess moves filter
+//		List<ChessPosition> whiteMoves = moveList.stream().filter(x -> x.getColor() == Color.WHITE)
+//				.collect(Collectors.toList());
+//		//Then print
+//	}
+
 	private static void printCapturedPieces(List<ChessPiece> captured) {
 		List<ChessPiece> white = captured.stream().filter(x -> x.getColor() == Color.WHITE)
 				.collect(Collectors.toList());
